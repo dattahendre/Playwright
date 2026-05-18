@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
 
+// Force a clean context to ensure you are on the login page
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test('Enter username and password and click on login button', async ({ page }) => {
   // Navigate to the OrangeHRM login page
   await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login', {
@@ -22,6 +25,12 @@ test('Enter username and password and click on login button', async ({ page }) =
   // Verify the Dashboard heading is visible after login
   await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
 
+  //verify the URL after login
+  const currentURL = await page.url();
+  console.log("Current URL after login:", currentURL);
+  await expect(page).toHaveURL(currentURL);
+  //await expect(page).toHaveURL('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index');
+
   // Take a screenshot of the dashboard
   await page.screenshot({ path: 'screenshot/login-dashboard.png' });
 
@@ -36,4 +45,19 @@ test('Enter username and password and click on login button', async ({ page }) =
 
   // Click the Admin link from the search results
   await page.getByRole('link', { name: /Admin/i }).click();
+
+  await expect(page.getByRole('heading', { name: 'System Users' })).toBeVisible();
+  //enter username in search box
+//
+const usernameInput = page.locator('input[class*="oxd-input"]').nth(1); // First input in the search form
+await usernameInput.click();
+await usernameInput.fill('Admin');
+  
+ // Click to open dropdown
+ await page.locator('//div[contains(@class,"oxd-select-text oxd-select-text--active")]').first().click();
+  await page.getByText('-- Select --').first().click();
+  await page.locator('//div[contains(@class,"oxd-select-text oxd-select-text--active")]').selectOption({ label: 'Admin' });
+
+
+  await page.pause();
 });
