@@ -6,9 +6,6 @@ test('has title', async ({ page }) => {
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Playwright/);
-
-  // Visible part of the page
-await page.screenshot({ path: 'screenshot.png' });
 });
 
 test('get started link', async ({ page }) => {
