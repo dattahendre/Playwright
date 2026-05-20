@@ -54,9 +54,22 @@ await usernameInput.click();
 await usernameInput.fill('Admin');
   
  // Click to open dropdown
- await page.locator('//div[contains(@class,"oxd-select-text oxd-select-text--active")]').first().click();
+ //await page.locator('//div[contains(@class,"oxd-select-text oxd-select-text--active")]').first().click();
   await page.getByText('-- Select --').first().click();
-  await page.locator('//div[contains(@class,"oxd-select-text oxd-select-text--active")]').selectOption({ label: 'Admin' });
+ 
+// Click the dropdown option "Admin" (inside the listbox)
+await page.getByRole('option', { name: 'Admin' }).click();
+//enter the employee name in search box
+await page.getByPlaceholder('Type for hints...').click();
+await page.getByPlaceholder('Type for hints...').fill('manda akhil user',{delay:1500});
+//wait for the dropdown options to appear
+await page.waitForTimeout(4000);
+//slect user from dropdown
+await page.getByRole('option', { name: 'manda akhil user' }).first().click();
+
+  await page.screenshot({ path: 'screenshot/login-search-admin.png' });
+ //click on user pfofile icon for logout
+ await page.locator('//*[name()="svg" and @class="oxd-userdropdown-icon"]').click();   
 
 
   await page.pause();
