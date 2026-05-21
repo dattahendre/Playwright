@@ -7,9 +7,11 @@ test('Verify error message for invalid login', async ({ page }) => {
     timeout: 60000,
   });
 
+  //verify home page image is visible
+  await expect(page.getByAltText("company-branding")).toBeVisible();
   // Attempt to log in with invalid credentials
   //enter username
-  await page.getByPlaceholder('Username').fill('Admin',{delay:5000});
+  await page.getByPlaceholder('Username').fill('Admin',{delay:8000});
   //enter password
   await page.getByPlaceholder('Password').fill('invalid_password',{delay:5000});
   //click login button

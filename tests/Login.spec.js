@@ -61,16 +61,20 @@ await usernameInput.fill('Admin');
 await page.getByRole('option', { name: 'Admin' }).click();
 //enter the employee name in search box
 await page.getByPlaceholder('Type for hints...').click();
-await page.getByPlaceholder('Type for hints...').fill('manda akhil user',{delay:1500});
+await page.getByPlaceholder('Type for hints...').fill('new akhil user',{delay:1500});
 //wait for the dropdown options to appear
 await page.waitForTimeout(4000);
 //slect user from dropdown
-await page.getByRole('option', { name: 'manda akhil user' }).first().click();
+await page.getByRole('option', { name: 'new akhil user' }).first().click();
 
   await page.screenshot({ path: 'screenshot/login-search-admin.png' });
  //click on user pfofile icon for logout
- await page.locator('//*[name()="svg" and @class="oxd-userdropdown-icon"]').click();   
+ await page.locator("//span[@class='oxd-userdropdown-tab']") .click();
+ //wait for 5 seconsds for the dropdown to appear
+ await page.waitForTimeout(5000);
+ //click on logout button
+ await page.getByRole('menuitem', { name: 'Logout' }).click();
 
 
-  await page.pause();
+  
 });
