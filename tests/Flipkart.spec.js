@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Flipkart search and open product', async ({ page }) => {
+test('Flipkart search and open product', async ({ page, browser }) => {
   await page.goto('https://www.flipkart.com/', {
     waitUntil: 'domcontentloaded',
     timeout: 60000,
@@ -29,4 +29,5 @@ test('Flipkart search and open product', async ({ page }) => {
   await productPage.waitForLoadState('domcontentloaded');
   await expect(productPage.locator('body')).toContainText('₹');
   await productPage.close();
+  await browser.close();
 });
