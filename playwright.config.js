@@ -39,18 +39,18 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      screenshot: 'on',
-      video: 'on',
-      viewport: { width: 1536, height: 695 },
+      use: {
+        ...devices['Desktop Chrome'],
+        screenshot: 'on',
+        video: 'on',
+        viewport: { width: 1536, height: 695 },
+      },
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
-      screenshot: 'on',
-      video: 'on',
-      viewport: { width: 1536, height: 1080 },
+     
     },
 
     {
